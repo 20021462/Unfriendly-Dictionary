@@ -2,7 +2,7 @@ public class DictionaryCommandline {
     /**
      * This method prints all words in a dictionary.
      *
-     * @param dict a variable has Dictionary class
+     * @param dict a Dictionary class object
      */
     public static void showAllWords(Dictionary dict) {
         System.out.println("No    |English             |Vietnamese   ");

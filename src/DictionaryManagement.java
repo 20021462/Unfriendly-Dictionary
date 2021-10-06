@@ -7,9 +7,9 @@ import java.util.Scanner;
 
 public class DictionaryManagement {
     /**
-     * This method insets word using command line.
+     * This method inserts word using command line.
      *
-     * @param dict a variable has Dictionary class
+     * @param dict a Dictionary class object
      */
     public static void insertFromCommandline(Dictionary dict) {
         int n = StdIn.readInt();
@@ -22,6 +22,12 @@ public class DictionaryManagement {
         }
     }
 
+    /**
+     * This method insert word by a file.
+     *
+     * @param path directory to the file
+     * @param dict a Dictionary class object
+     */
     public static void insertFromFile(String path,Dictionary dict) {
         In myReader = new In(path);
         while (myReader.hasNextLine()) {
@@ -34,6 +40,11 @@ public class DictionaryManagement {
         myReader.close();
     }
 
+    /**
+     * This method fine if there is your word in the dictionary, and show its meaning.
+     *
+     * @param dict a Dictionary class object
+     */
     public static void dictionaryLookup(Dictionary dict){
         String word = StdIn.readString();
         for (int i=0;i< dict.getWordNumber();i++){

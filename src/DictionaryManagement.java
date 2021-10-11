@@ -1,5 +1,9 @@
 import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.Out;
 import edu.princeton.cs.algs4.StdIn;
+
+import java.io.File;
+import java.io.IOException;
 
 public class DictionaryManagement {
     /**
@@ -28,8 +32,9 @@ public class DictionaryManagement {
     }
 
     /**
+     *This method is used to add, remove, search or show words in dictionary.
      *
-     * @param dict
+     * @param dict a Dictionary class object
      */
     public static void commandFromCommandline(Dictionary dict) {
         boolean exit = false;
@@ -91,4 +96,22 @@ public class DictionaryManagement {
         System.out.println("Word not found!");
     }
 
+    /**
+     * This method export all words in a dictionary to a .txt file.
+     *
+     * @param path local path or file name
+     * @param dict a Dictionary class object
+     * @throws IOException
+     */
+    public static void dictionaryExportToFile(String path, Dictionary dict) throws IOException {
+        File del = new File(path);
+        del.delete();
+        File dictFile = new File(path);
+        dictFile.createNewFile();
+        Out printer = new Out(path);
+        printer.println("No    |English                  |Vietnamese   ");
+        for (int i = 0; i < dict.getWordNumber(); i++) {
+            printer.printf("%-6d|%-25s|%s%n", i + 1, dict.getWords()[i].getWord_target(), dict.getWords()[i].getWord_explain());
+        }
+    }
 }

@@ -1,10 +1,13 @@
+import java.io.IOException;
+
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Dictionary dict = new Dictionary();
         DictionaryManagement.insertFromFile("dictionaries.txt",dict);
-        DictionaryCommandline.showAllWords(dict);
+        /*DictionaryCommandline.showAllWords(dict);
         DictionaryManagement.commandFromCommandline(dict);
-        //DictionaryManagement.dictionaryLookup(dict);
+        DictionaryManagement.dictionaryLookup(dict);*/
+        DictionaryManagement.dictionaryExportToFile("dictionaryNow.txt",dict);
 
     }
 

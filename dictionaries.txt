@@ -1,3 +1,4 @@
 Hello	Xin chao
 Eat	An
-Harmfully	Mot cach co hai
+Harmful	Co hai
+Harmless	Vo hai

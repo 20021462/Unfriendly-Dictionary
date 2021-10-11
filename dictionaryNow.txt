@@ -1,0 +1,5 @@
+No    |English                  |Vietnamese   
+1     |Hello                    |Xin chao
+2     |Eat                      |An
+3     |Harmful                  |Co hai
+4     |Harmless                 |Vo hai

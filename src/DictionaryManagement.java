@@ -10,15 +10,14 @@ public class DictionaryManagement {
      * This method inserts word using command line.
      *
      * @param dict a Dictionary class object
-     * @param n number of words you want to add
      */
-    public static void insertFromCommandline(Dictionary dict, int n) {
-        //int n = StdIn.readInt();
+    public static void insertFromCommandline(Dictionary dict) {
+        int n = StdIn.readInt();
         for (int i = 0; i < n; i++) {
             String word_target = StdIn.readString();
             StdIn.readLine();
             String word_explain = StdIn.readLine();
-            dict.addWord(word_target, word_explain);
+            dict.add(word_target, word_explain);
         }
     }
 
@@ -28,7 +27,7 @@ public class DictionaryManagement {
      * @param n number of that word in dictionary
      */
     public static void removeFromCommandline(Dictionary dict, int n) {
-        dict.removeWord(n);
+        dict.remove(n);
     }
 
     /**
@@ -39,24 +38,21 @@ public class DictionaryManagement {
     public static void commandFromCommandline(Dictionary dict) {
         boolean exit = false;
         while (!exit) {
-            System.out.println("Nhap vao menh lenh cua ban : ");
             String command = StdIn.readString();
             if (command.equals(Dictionary.ADD)) {
-                System.out.println("Nhap so tu moi can them vao : ");
-                int n = StdIn.readInt();
-                insertFromCommandline(dict, n);
+                insertFromCommandline(dict);
             } else if (command.equals(Dictionary.REMOVE)) {
-                System.out.println("Nhap so thu tu cua tu can xoa : ");
                 int n = StdIn.readInt();
                 System.out.println("REMOVE ");
                 DictionaryCommandline.showOneWords(dict, n);
                 removeFromCommandline(dict, n);
             } else if (command.equals(Dictionary.SEARCH)) {
-                System.out.println("Nhap tu can tim : ");
                 String subWord = StdIn.readString();
                 DictionaryCommandline.dictionarySearcher(dict, subWord);
             } else if (command.equals(Dictionary.SHOW)) {
                 DictionaryCommandline.showAllWords(dict);
+            } else if (command.equals(Dictionary.EXIT)) {
+                exit = true;
             }
         }
     }
@@ -73,7 +69,7 @@ public class DictionaryManagement {
             String word_target = myReader.readString();
             String word_explain = myReader.readLine();
             word_explain = word_explain.substring(1);
-            dict.getWords()[dict.getWordNumber()] = new Dictionary.Word(word_target, word_explain);
+            dict.getWords()[dict.getWordNumber()] = new Word(word_target, word_explain);
             dict.setWordNumber(dict.getWordNumber() + 1);
         }
         myReader.close();

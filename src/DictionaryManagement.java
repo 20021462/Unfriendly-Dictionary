@@ -105,9 +105,8 @@ public class DictionaryManagement {
         File dictFile = new File(path);
         dictFile.createNewFile();
         Out printer = new Out(path);
-        printer.println("No    |English                  |Vietnamese   ");
         for (int i = 0; i < dict.getWordNumber(); i++) {
-            printer.printf("%-6d|%-25s|%s%n", i + 1, dict.getWords()[i].getWord_target(), dict.getWords()[i].getWord_explain());
+            printer.println(dict.getWords()[i].getWord_target()+"\t"+ dict.getWords()[i].getWord_explain());
         }
     }
 }

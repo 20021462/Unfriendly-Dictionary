@@ -1,5 +1,5 @@
 public class Dictionary {
-    private Word[] words = new Word[100];
+    private Word[] words = new Word[30000];
     private int wordNumber = 0;
 
     public int getWordNumber() { return wordNumber; }

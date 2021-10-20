@@ -1,27 +1,18 @@
+import java.util.ArrayList;
+
 public class Dictionary {
-    private Word[] words = new Word[30000];
-    private int wordNumber = 0;
+    private ArrayList<Word> words = new ArrayList<>(5000);
 
-    public int getWordNumber() { return wordNumber; }
+    public ArrayList<Word> getWords() { return words; }
 
-    public Word[] getWords() { return words; }
-
-    public void setWordNumber(int wordNumber) { this.wordNumber = wordNumber; }
-
-    public void setWords(Word[] words) { this.words = words; }
+    public void setWords(ArrayList<Word> words) { this.words = words; }
 
     public void add(String wordTarget, String wordExplain) {
-        Word newWord = new Word(wordTarget, wordExplain);
-        this.words[this.wordNumber] = newWord;
-        wordNumber++;
+        words.add(new Word(wordTarget, wordExplain));
     }
 
     public void remove(int number) {
-        wordNumber--;
-        number--;
-        for (int i = number; i < wordNumber; i++) {
-            words[i] = words[i+1];
-        }
+        words.remove(number);
     }
 
     public static String SHOW = "-show";

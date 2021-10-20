@@ -1,24 +1,27 @@
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.Out;
-import edu.princeton.cs.algs4.StdIn;
-
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class DictionaryManagement {
+    private static Scanner scanner=new Scanner(System.in);
     /**
      * This method inserts word using command line.
      *
      * @param dict a Dictionary class object
      */
     public static void insertFromCommandline(Dictionary dict) {
-        int n = StdIn.readInt();
+        System.out.println("Enter number of added words: ");
+        int n = scanner.nextInt();
         for (int i = 0; i < n; i++) {
-            String word_target = StdIn.readString();
-            StdIn.readLine();
-            String word_explain = StdIn.readLine();
+            System.out.println("Enter words:");
+            String word_target = scanner.next();
+            scanner.nextLine();
+            System.out.println("Enter meaning:");
+            String word_explain = scanner.nextLine();
             dict.add(word_target, word_explain);
         }
+        System.out.println("Added "+n+" words successful");
     }
 
     /**
@@ -38,16 +41,17 @@ public class DictionaryManagement {
     public static void commandFromCommandline(Dictionary dict) {
         boolean exit = false;
         while (!exit) {
-            String command = StdIn.readString();
+            String command = scanner.next();
             if (command.equals(Dictionary.ADD)) {
                 insertFromCommandline(dict);
             } else if (command.equals(Dictionary.REMOVE)) {
-                int n = StdIn.readInt();
-                System.out.println("REMOVE ");
+                System.out.println("Enter index of word you want to remove: ");
+                int n = scanner.nextInt();
                 DictionaryCommandline.showOneWords(dict, n);
                 removeFromCommandline(dict, n);
             } else if (command.equals(Dictionary.SEARCH)) {
-                String subWord = StdIn.readString();
+                System.out.println("Enter word:");
+                String subWord = scanner.next();
                 DictionaryCommandline.dictionarySearcher(dict, subWord);
             } else if (command.equals(Dictionary.SHOW)) {
                 DictionaryCommandline.showAllWords(dict);
@@ -63,16 +67,20 @@ public class DictionaryManagement {
      * @param path directory to the file
      * @param dict a Dictionary class object
      */
-    public static void insertFromFile(String path,Dictionary dict) {
-        In myReader = new In(path);
-        while (myReader.hasNextLine()) {
-            String word_target = myReader.readString();
-            String word_explain = myReader.readLine();
-            word_explain = word_explain.substring(1);
-            dict.getWords()[dict.getWordNumber()] = new Word(word_target, word_explain);
-            dict.setWordNumber(dict.getWordNumber() + 1);
+    public static void insertFromFile(String path,Dictionary dict) throws IOException {
+        File myFile = new File(path);
+        Scanner fileScanner = new Scanner(myFile);
+       while (fileScanner.hasNextLine()) {
+            String word = fileScanner.nextLine();
+            for (int i=0;i<word.length();i++){
+                if (word.charAt(i)=='\t') {
+                    String word_target= word.substring(0,i);
+                    String word_explain=word.substring(i+1);
+                    dict.add(word_target,word_explain);
+                }
+            }
         }
-        myReader.close();
+        fileScanner.close();
     }
 
     /**
@@ -81,11 +89,12 @@ public class DictionaryManagement {
      * @param dict a Dictionary class object
      */
     public static void dictionaryLookup(Dictionary dict){
-        String word = StdIn.readString();
-        for (int i=0;i< dict.getWordNumber();i++){
-            if (dict.getWords()[i].getWord_target().equals(word)){
+        System.out.print("Enter words: ");
+        String word = scanner.next();
+        for (int i=0;i< dict.getWords().size();i++){
+            if (dict.getWords().get(i).getWord_target().equals(word)){
                 System.out.println("No    |English             |Vietnamese   ");
-                System.out.printf("%-6d|%-20s|%s%n", i + 1, dict.getWords()[i].getWord_target(), dict.getWords()[i].getWord_explain());
+                System.out.printf("%-6d|%-20s|%s%n", i + 1, dict.getWords().get(i).getWord_target(), dict.getWords().get(i).getWord_explain());
                 return;
             }
         }
@@ -100,13 +109,12 @@ public class DictionaryManagement {
      * @throws IOException
      */
     public static void dictionaryExportToFile(String path, Dictionary dict) throws IOException {
-        File del = new File(path);
-        del.delete();
         File dictFile = new File(path);
         dictFile.createNewFile();
-        Out printer = new Out(path);
-        for (int i = 0; i < dict.getWordNumber(); i++) {
-            printer.println(dict.getWords()[i].getWord_target()+"\t"+ dict.getWords()[i].getWord_explain());
+        FileWriter myWriter = new FileWriter(dictFile);
+        for (int i = 0; i < dict.getWords().size(); i++) {
+            myWriter.write(dict.getWords().get(i).getWord_target()+"\t"+ dict.getWords().get(i).getWord_explain()+'\n');
         }
+        myWriter.close();
     }
 }

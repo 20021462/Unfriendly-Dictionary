@@ -6,31 +6,32 @@ public class DictionaryCommandline {
      */
     public static void showAllWords(Dictionary dict) {
         System.out.println("No    |English                  |Vietnamese   ");
-        for (int i = 0; i < dict.getWordNumber(); i++) {
-            System.out.printf("%-6d|%-25s|%s%n", i + 1, dict.getWords()[i].getWord_target(), dict.getWords()[i].getWord_explain());
+        for (int i = 0; i < dict.getWords().size(); i++) {
+            System.out.printf("%-6d|%-25s|%s%n", i + 1, dict.getWords().get(i).getWord_target(), dict.getWords().get(i).getWord_explain());
         }
     }
 
     /**
      * This method prints word number n in a dictionary
      * @param dict a Dictionary class object
-     * @param n number of word
+     * @param number number of word
      */
-    public static void showOneWords(Dictionary dict, int n) {
+    public static void showOneWords(Dictionary dict, int number) {
         //System.out.println("No    |English             |Vietnamese   ");
-        System.out.printf("%-6d|%-20s|%s%n", n--, dict.getWords()[n].getWord_target(), dict.getWords()[n].getWord_explain());
+        System.out.printf("%-6d|%-20s|%s%n", number, dict.getWords().get(number).getWord_target(), dict.getWords().get(number).getWord_explain());
     }
 
     /**
+     * This method searches words in dictionary.
      *
-     * @param dict
-     * @param wordFind
+     * @param dict     dictionary object
+     * @param wordFind searched string
      */
     public static void dictionarySearcher(Dictionary dict, String wordFind) {
         System.out.println("No    |English             |Vietnamese   ");
-        for (int i = 0; i < dict.getWordNumber(); i++) {
-            if (dict.getWords()[i].getWord_target().indexOf(wordFind) == 0) {
-                System.out.printf("%-6d|%-20s|%s%n", i + 1, dict.getWords()[i].getWord_target(), dict.getWords()[i].getWord_explain());
+        for (int i = 0; i < dict.getWords().size(); i++) {
+            if (dict.getWords().get(i).getWord_target().indexOf(wordFind) == 0) {
+                System.out.printf("%-6d|%-20s|%s%n", i + 1, dict.getWords().get(i).getWord_target(), dict.getWords().get(i).getWord_explain());
             }
         }
     }

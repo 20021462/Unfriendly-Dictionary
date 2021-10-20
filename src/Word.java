@@ -1,25 +1,35 @@
 public class Word {
-    private String word_target;
-    private String word_explain;
+    private String wordTarget;
+    private String wordSound;
+    private String wordExplain;
 
-    public String getWord_target() {
-        return word_target;
+    Word(String wordTarget, String wordSound, String wordExplain) {
+        this.wordTarget = wordTarget;
+        this.wordSound=wordSound;
+        this.wordExplain = wordExplain;
     }
 
-    public String getWord_explain() {
-        return word_explain;
+    public void setWordExplain(String wordExplain) {
+        this.wordExplain = wordExplain;
     }
 
-    public void setWord_target(String word_target) {
-        this.word_target = word_target;
+    public void setWordTarget(String wordTarget) {
+        this.wordTarget = wordTarget;
     }
 
-    public void setWord_explain(String word_explain) {
-        this.word_explain = word_explain;
+    public void setWordSound(String wordSound) {
+        this.wordSound = wordSound;
     }
 
-    Word(String word_target, String word_explain) {
-        this.word_target = word_target;
-        this.word_explain = word_explain;
+    public String getWordExplain() {
+        return wordExplain;
+    }
+
+    public String getWordSound() {
+        return wordSound;
+    }
+
+    public String getWordTarget() {
+        return wordTarget;
     }
 }

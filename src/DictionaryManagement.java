@@ -15,23 +15,48 @@ public class DictionaryManagement {
         int n = scanner.nextInt();
         for (int i = 0; i < n; i++) {
             System.out.println("Enter words:");
-            String word_target = scanner.next();
+            String wordTarget = scanner.next();
             scanner.nextLine();
+            System.out.println("Enter sound:");
+            String wordSound = scanner.nextLine();
             System.out.println("Enter meaning:");
-            String word_explain = scanner.nextLine();
-            dict.add(word_target, word_explain);
+            String wordExplain = scanner.nextLine();
+            dict.add(wordTarget, wordSound,wordExplain);
         }
         System.out.println("Added "+n+" words successful");
     }
 
     /**
-     * This method removes word using command line.
+     * This method removes word using command line by index.
      * @param dict a Dictionary class object
-     * @param n number of that word in dictionary
+     * @param num index of that word
      */
-    public static void removeFromCommandline(Dictionary dict, int n) {
-        dict.remove(n);
+    public static void removeFromCommandline(Dictionary dict, int num) {
+        if (num>=0&&num<dict.getWords().size()){
+            DictionaryCommandline.showOneWords(dict, num);
+            System.out.println("Removed word \""+dict.getWords().get(num).getWordTarget() +"\" successfully");
+            dict.remove(num);
+            return;
+        }
+        System.out.println("Invalid Index!");
     }
+
+    /**
+     * This method removes word using command line by word target.
+     *
+     * @param dict a Dictionary class object
+     * @param s    the word
+     */
+    public static void removeFromCommandline(Dictionary dict, String s){
+        int num=DictionaryManagement.dictionaryLookup(s,dict);
+        if(num!=-1){
+            System.out.println("Removed word \""+dict.getWords().get(num).getWordTarget() +"\" successfully");
+            dict.remove(num);
+
+        }
+
+    }
+
 
     /**
      *This method is used to add, remove, search or show words in dictionary.
@@ -47,7 +72,6 @@ public class DictionaryManagement {
             } else if (command.equals(Dictionary.REMOVE)) {
                 System.out.println("Enter index of word you want to remove: ");
                 int n = scanner.nextInt();
-                DictionaryCommandline.showOneWords(dict, n);
                 removeFromCommandline(dict, n);
             } else if (command.equals(Dictionary.SEARCH)) {
                 System.out.println("Enter word:");
@@ -68,37 +92,55 @@ public class DictionaryManagement {
      * @param dict a Dictionary class object
      */
     public static void insertFromFile(String path,Dictionary dict) throws IOException {
+        boolean permit=false;
         File myFile = new File(path);
         Scanner fileScanner = new Scanner(myFile);
-       while (fileScanner.hasNextLine()) {
-            String word = fileScanner.nextLine();
-            for (int i=0;i<word.length();i++){
-                if (word.charAt(i)=='\t') {
-                    String word_target= word.substring(0,i);
-                    String word_explain=word.substring(i+1);
-                    dict.add(word_target,word_explain);
+        String wordTarget="";
+        String wordSound="";
+        String wordExplain="";
+        while (fileScanner.hasNextLine()) {
+            String b = fileScanner.nextLine();
+            if (b.charAt(0) == '@') {
+                if (permit){
+                    dict.add(wordTarget,wordSound,wordExplain);
+                    wordExplain="";
                 }
+                if (!permit) permit=true;
+                for (int i = 0; i < b.length(); i++) {
+                    if (b.charAt(i) == '/') {
+                        for (int j=i+1;j<b.length();j++){
+                            if (b.charAt(j)=='/'){
+                                wordTarget=b.substring(1,i-1);
+                                wordSound=b.substring(i,j+1);
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+            }else {
+                wordExplain = wordExplain.concat(b+'\n');
             }
         }
+        dict.add(wordTarget,wordSound,wordExplain);
         fileScanner.close();
     }
 
     /**
      * This method fine if there is your word in the dictionary, and show its meaning.
      *
+     * @param word the word you want to remove
      * @param dict a Dictionary class object
      */
-    public static void dictionaryLookup(Dictionary dict){
-        System.out.print("Enter words: ");
-        String word = scanner.next();
+    public static int dictionaryLookup(String word,Dictionary dict){
         for (int i=0;i< dict.getWords().size();i++){
-            if (dict.getWords().get(i).getWord_target().equals(word)){
-                System.out.println("No    |English             |Vietnamese   ");
-                System.out.printf("%-6d|%-20s|%s%n", i + 1, dict.getWords().get(i).getWord_target(), dict.getWords().get(i).getWord_explain());
-                return;
+            if (dict.getWords().get(i).getWordTarget().equals(word)){
+                DictionaryCommandline.showOneWords(dict,i);
+                return i;
             }
         }
         System.out.println("Word not found!");
+        return -1;
     }
 
     /**
@@ -113,7 +155,9 @@ public class DictionaryManagement {
         dictFile.createNewFile();
         FileWriter myWriter = new FileWriter(dictFile);
         for (int i = 0; i < dict.getWords().size(); i++) {
-            myWriter.write(dict.getWords().get(i).getWord_target()+"\t"+ dict.getWords().get(i).getWord_explain()+'\n');
+            myWriter.write('@'+dict.getWords().get(i).getWordTarget()
+                    +' '+dict.getWords().get(i).getWordSound()
+                    +'\n'+dict.getWords().get(i).getWordExplain());
         }
         myWriter.close();
     }

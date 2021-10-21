@@ -1,7 +1,5 @@
-import java.io.IOException;
-
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         Dictionary dict = new Dictionary();
         DictionaryManagement.insertFromFile("dictionary.txt",dict);
         DictionaryCommandline.showAllWords(dict);

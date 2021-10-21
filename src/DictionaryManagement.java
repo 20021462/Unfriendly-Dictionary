@@ -91,39 +91,44 @@ public class DictionaryManagement {
      * @param path directory to the file
      * @param dict a Dictionary class object
      */
-    public static void insertFromFile(String path,Dictionary dict) throws IOException {
-        boolean permit=false;
-        File myFile = new File(path);
-        Scanner fileScanner = new Scanner(myFile);
-        String wordTarget="";
-        String wordSound="";
-        String wordExplain="";
-        while (fileScanner.hasNextLine()) {
-            String b = fileScanner.nextLine();
-            if (b.charAt(0) == '@') {
-                if (permit){
-                    dict.add(wordTarget,wordSound,wordExplain);
-                    wordExplain="";
-                }
-                if (!permit) permit=true;
-                for (int i = 0; i < b.length(); i++) {
-                    if (b.charAt(i) == '/') {
-                        for (int j=i+1;j<b.length();j++){
-                            if (b.charAt(j)=='/'){
-                                wordTarget=b.substring(1,i-1);
-                                wordSound=b.substring(i,j+1);
-                                break;
-                            }
-                        }
-                        break;
+    public static void insertFromFile(String path,Dictionary dict) {
+        try{
+            boolean permit=false;
+            File myFile = new File(path);
+            Scanner fileScanner = new Scanner(myFile);
+            String wordTarget="";
+            String wordSound="";
+            String wordExplain="";
+            while (fileScanner.hasNextLine()) {
+                String b = fileScanner.nextLine();
+                if (b.charAt(0) == '@') {
+                    if (permit){
+                        dict.add(wordTarget,wordSound,wordExplain);
+                        wordExplain="";
                     }
+                    if (!permit) permit=true;
+                    for (int i = 0; i < b.length(); i++) {
+                        if (b.charAt(i) == '/') {
+                            for (int j=i+1;j<b.length();j++){
+                                if (b.charAt(j)=='/'){
+                                    wordTarget=b.substring(1,i-1);
+                                    wordSound=b.substring(i,j+1);
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                    }
+                }else {
+                    wordExplain = wordExplain.concat(b+'\n');
                 }
-            }else {
-                wordExplain = wordExplain.concat(b+'\n');
             }
+            dict.add(wordTarget,wordSound,wordExplain);
+            fileScanner.close();
+        } catch (IOException e) {
+            System.out.println("An import error occurred.");
+            e.printStackTrace();
         }
-        dict.add(wordTarget,wordSound,wordExplain);
-        fileScanner.close();
     }
 
     /**
@@ -150,15 +155,21 @@ public class DictionaryManagement {
      * @param dict a Dictionary class object
      * @throws IOException
      */
-    public static void dictionaryExportToFile(String path, Dictionary dict) throws IOException {
-        File dictFile = new File(path);
-        dictFile.createNewFile();
-        FileWriter myWriter = new FileWriter(dictFile);
-        for (int i = 0; i < dict.getWords().size(); i++) {
-            myWriter.write('@'+dict.getWords().get(i).getWordTarget()
-                    +' '+dict.getWords().get(i).getWordSound()
-                    +'\n'+dict.getWords().get(i).getWordExplain());
+    public static void dictionaryExportToFile(String path, Dictionary dict) {
+        try{
+            File dictFile = new File(path);
+            dictFile.createNewFile();
+            FileWriter myWriter = new FileWriter(dictFile);
+            for (int i = 0; i < dict.getWords().size(); i++) {
+                myWriter.write('@'+dict.getWords().get(i).getWordTarget()
+                        +' '+dict.getWords().get(i).getWordSound()
+                        +'\n'+dict.getWords().get(i).getWordExplain());
+            }
+            myWriter.close();
+        } catch (IOException e) {
+            System.out.println("An export error occurred.");
+            e.printStackTrace();
         }
-        myWriter.close();
+
     }
 }

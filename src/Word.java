@@ -1,7 +1,11 @@
+import com.sun.speech.freetts.Voice;
+import com.sun.speech.freetts.VoiceManager;
+
 public class Word {
     private String wordTarget;
     private String wordSound;
     private String wordExplain;
+    static Voice voice = VoiceManager.getInstance().getVoice("kevin16");
 
     Word(String wordTarget, String wordSound, String wordExplain) {
         this.wordTarget = wordTarget;
@@ -31,5 +35,15 @@ public class Word {
 
     public String getWordTarget() {
         return wordTarget;
+    }
+
+    public void speak(){
+        if (voice!=null){
+            voice.allocate();
+            boolean status=voice.speak(this.wordTarget);
+            voice.deallocate();
+        } else {
+            System.out.println("Error in getting Voices");
+        }
     }
 }

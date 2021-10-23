@@ -1,5 +1,3 @@
-package model;
-
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
 
@@ -7,13 +5,9 @@ public class Word {
     private String wordTarget;
     private String wordSound;
     private String wordExplain;
-
     static Voice voice = VoiceManager.getInstance().getVoice("kevin16");
 
-    public Word() {
-    }
-
-    public Word(String wordTarget, String wordSound, String wordExplain) {
+    Word(String wordTarget, String wordSound, String wordExplain) {
         this.wordTarget = wordTarget;
         this.wordSound=wordSound;
         this.wordExplain = wordExplain;

@@ -1,7 +1,3 @@
-package control;
-
-import model.Dictionary;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

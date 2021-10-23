@@ -1,7 +1,3 @@
-package control;
-
-import model.Dictionary;
-
 
 public class DictionaryCommandline {
     /**

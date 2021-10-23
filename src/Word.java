@@ -1,5 +1,3 @@
-package model;
-
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
 
@@ -7,11 +5,6 @@ public class Word {
     private String wordTarget;
     private String wordSound;
     private String wordExplain;
-
-    static Voice voice = VoiceManager.getInstance().getVoice("kevin16");
-
-    public Word() {
-    }
 
     public Word(String wordTarget, String wordSound, String wordExplain) {
         this.wordTarget = wordTarget;
@@ -44,9 +37,10 @@ public class Word {
     }
 
     public void speak(){
+        Voice voice = VoiceManager.getInstance().getVoice("kevin16");
         if (voice!=null){
             voice.allocate();
-            boolean status=voice.speak(this.wordTarget);
+            voice.speak(this.wordTarget);
             voice.deallocate();
         } else {
             System.out.println("Error in getting Voices");

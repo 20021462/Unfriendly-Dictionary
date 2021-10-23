@@ -13,7 +13,7 @@ public class Translator {
         System.out.println("Translated text: " + translate("vi", "en", text));
     }
 
-    private static String translate(String langFrom, String langTo, String text) {
+    public static String translate(String langFrom, String langTo, String text) {
         // INSERT YOU URL HERE
         try {
             String urlStr = "https://script.google.com/macros/s/AKfycbxzMc82-y0Yrx1XQZ6N4CfV4W5PDXHYle0mWwIUVpbWZCA8BqZA/exec" +

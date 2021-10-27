@@ -8,13 +8,12 @@ import java.net.URLEncoder;
 public class Translator {
 
     public static void main(String[] args) throws IOException {
-        String text = "Bạn bao nhiêu tuổi ?";
+        String text = "Mèo ?";
         //Translated text: Hallo Welt!
-        System.out.println("Translated text: " + translate("vi", "en", text));
+        System.out.println("Translated text: " + translate("vi", "vi", text));
     }
 
     public static String translate(String langFrom, String langTo, String text) {
-        // INSERT YOU URL HERE
         try {
             String urlStr = "https://script.google.com/macros/s/AKfycbxzMc82-y0Yrx1XQZ6N4CfV4W5PDXHYle0mWwIUVpbWZCA8BqZA/exec" +
                     "?q=" + URLEncoder.encode(text, "UTF-8") +

@@ -87,7 +87,5 @@ public class DictionaryCommandline {
     public static void dictionaryBasic() {
     }
 
-    public static void dictionaryAdvanced(){
-
-    }
+    public static void dictionaryAdvanced(){}
 }

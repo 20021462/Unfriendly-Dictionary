@@ -6,9 +6,16 @@ public class Word {
     private String wordSound;
     private String wordExplain;
 
+    /**
+     * Constructor of a Word.
+     *
+     * @param wordTarget  word
+     * @param wordSound   pronoun
+     * @param wordExplain explanation
+     */
     public Word(String wordTarget, String wordSound, String wordExplain) {
         this.wordTarget = wordTarget;
-        this.wordSound=wordSound;
+        this.wordSound = wordSound;
         this.wordExplain = wordExplain;
     }
 
@@ -36,9 +43,13 @@ public class Word {
         return wordTarget;
     }
 
-    public void speak(){
+    /**
+     * This method speaks the word.
+     * Source: https://www.javatpoint.com/convert-text-to-speech-in-java.
+     */
+    public void speak() {
         Voice voice = VoiceManager.getInstance().getVoice("kevin16");
-        if (voice!=null){
+        if (voice != null) {
             voice.allocate();
             voice.speak(this.wordTarget);
             voice.deallocate();

@@ -13,6 +13,15 @@ public class Translator {
         System.out.println("Translated text: " + translate("vi", "vi", text));
     }
 
+    /**
+     * This method translates text.
+     * Source: https://tinyurl.com/APItranslator
+     *
+     * @param langFrom the language from which text are translated
+     * @param langTo   the language to which text are translated
+     * @param text     text
+     * @return
+     */
     public static String translate(String langFrom, String langTo, String text) {
         try {
             String urlStr = "https://script.google.com/macros/s/AKfycbxzMc82-y0Yrx1XQZ6N4CfV4W5PDXHYle0mWwIUVpbWZCA8BqZA/exec" +
@@ -30,10 +39,8 @@ public class Translator {
             }
             in.close();
             return response.toString();
-        } catch (IOException e){
+        } catch (IOException e) {
             return e.toString();
         }
-
     }
-
 }

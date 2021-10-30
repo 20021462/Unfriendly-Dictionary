@@ -6,18 +6,19 @@ public class DictionaryCommandline {
      * @param dict a Dictionary class object
      */
     public static void showAllWords(Dictionary dict) {
-        for (int i=0;i<dict.getWords().size();i++){
-            showOneWords(dict,i);
+        for (int i = 0; i < dict.getWords().size(); i++) {
+            showOneWords(dict, i);
         }
     }
 
     /**
      * This method prints word number n in a dictionary
+     *
      * @param dict a Dictionary class object
-     * @param i index of word
+     * @param i    index of word
      */
     public static void showOneWords(Dictionary dict, int i) {
-        System.out.println(dict.getWords().get(i).getWordTarget()+" "+dict.getWords().get(i).getWordSound());
+        System.out.println(dict.getWords().get(i).getWordTarget() + " " + dict.getWords().get(i).getWordSound());
         System.out.println(dict.getWords().get(i).getWordExplain());
     }
 
@@ -87,5 +88,6 @@ public class DictionaryCommandline {
     public static void dictionaryBasic() {
     }
 
-    public static void dictionaryAdvanced(){}
+    public static void dictionaryAdvanced() {
+    }
 }
